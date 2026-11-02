@@ -100,6 +100,8 @@ fi
 step hlb node tier "$node" --set heavy --apply || die "the node could not be made heavy"
 step hlb config exposure --domain "$domain" --node "$node" --internal --apply ||
     die "the exposure could not be set"
+# Bulwark and Seafile read it at their first start, and refuse to install without one.
+step hlb config timezone UTC --apply || die "the time zone could not be set"
 
 # The platform services the app depends on, and Caddy, in the order they deploy.
 mapfile -t order < <(hlb order | sed -nE 's/^ *[0-9]+\. ([a-z0-9-]+).*/\1/p')
@@ -131,8 +133,16 @@ prerequisites() {
 # `hlb todo` lists the steps after the install as blocking too, and one attested by
 # force is one the executor no longer does (Mealie's default administrator).
 install() {
-    hlb install "$1" --apply && return 0
-    local pending ids
+    local out pending ids
+    out=$(hlb install "$1" --apply 2>&1)
+    local code=$?
+    echo "$out"
+    [[ $code -eq 0 ]] && return 0
+    # A platform service with a route takes no default domain (oauth2-proxy).
+    if grep -q 'parameter "domain" is required' <<<"$out"; then
+        hlb install "$1" --domain "$1.$domain" --apply
+        return
+    fi
     pending=$(hlb todo | sed -nE "s/.* $1 · .*  \[([^]]+)\].*/\1/p")
     ids=$(grep -Fxf <(prerequisites "$1") <<<"$pending" || true)
     [[ -n $ids ]] || return 1
@@ -145,6 +155,11 @@ install() {
 for s in "${order[@]}"; do
     [[ -n ${needed[$s]:-} ]] || continue
     step install "$s" || die "the platform service $s could not be installed"
+    # Garage stores nothing until each node has its place in the layout: an app creating
+    # its buckets right after is refused "Layout not ready".
+    if [[ $s == garage ]]; then
+        step hlb garage init --apply || die "Garage's layout could not be applied"
+    fi
 done
 
 # Its assertions, until each was read: `hlb assert` exits 2 while one is unknown (an
@@ -202,14 +217,19 @@ for db in "${databases[@]}"; do
         lines+=("$(restore_line "$app" --database "$db")")
     fi
 done
-[[ ${#lines[@]} -gt 0 ]] || fail restore "nothing to restore was found: $listing"
-for line in "${lines[@]}"; do
-    [[ -n $line ]] || fail restore "a preview printed no line to run"
-    read -ra argv <<<"$line"
-    step "${argv[@]}" || fail restore "$line"
-done
-holds || fail restore "its assertions after the restore"
-outcome[restore]=passed
+# An app keeping nothing (LibreSpeed) has nothing to restore: not run, not failed.
+if [[ ${#lines[@]} -eq 0 ]] && grep -q 'there is nothing to restore' <<<"$listing"; then
+    echo "── $app backs up nothing: no restore to prove"
+else
+    [[ ${#lines[@]} -gt 0 ]] || fail restore "nothing to restore was found: $listing"
+    for line in "${lines[@]}"; do
+        [[ -n $line ]] || fail restore "a preview printed no line to run"
+        read -ra argv <<<"$line"
+        step "${argv[@]}" || fail restore "$line"
+    done
+    holds || fail restore "its assertions after the restore"
+    outcome[restore]=passed
+fi
 
 step hlb remove "$app" --confirm "$app" --apply || fail uninstall "hlb remove $app"
 if docker service ls --format '{{.Name}}' | grep -qE "^$app(-|$)"; then
