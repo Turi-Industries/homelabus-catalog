@@ -1,0 +1,96 @@
+name: Quality
+
+# Proves each app's cycle on a fresh single-node house (`scripts/quality.sh`): the apps a
+# pull request changes, the same on main once merged, and every app weekly — an image
+# that moved under a tag breaks without a commit here. What main's runs leave is what
+# the Index workflow gathers into the signed `quality-v1.json`; a pull request's runs
+# judge the pull request only.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: "Apps to prove, space-separated (every app if empty)"
+        required: false
+
+# Nothing is written: a pull request from anyone runs here, on a runner thrown away after.
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  apps:
+    name: Apps to prove
+    runs-on: ubuntu-26.04
+    outputs:
+      apps: ${{ steps.list.outputs.apps }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - id: list
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          ASKED: ${{ inputs.apps }}
+        run: |
+          # An app is a top-level directory holding a manifest; a change to the scripts
+          # or the licences proves nothing new.
+          all=$(for d in */; do [[ -f $d/manifest.yaml ]] && echo "${d%/}"; done)
+          case $EVENT in
+            schedule) apps=$all ;;
+            workflow_dispatch) apps=${ASKED:-$all} ;;
+            *)
+              changed=$(git diff --name-only "$BASE" HEAD)
+              # A change to the cycle itself is proven on every app it runs.
+              if grep -qxE 'scripts/quality\.sh|\.github/workflows/quality\.yml' <<<"$changed"; then
+                apps=$all
+              else
+                apps=$(cut -d/ -f1 <<<"$changed" | sort -u | grep -Fxf <(echo "$all") || true)
+              fi
+              ;;
+          esac
+          echo "apps=$(tr ' ' '\n' <<<"$apps" | jq -Rnc '[inputs | select(. != "")]')" >>"$GITHUB_OUTPUT"
+          echo "To prove: ${apps:-none}"
+
+  prove:
+    name: ${{ matrix.app }}
+    needs: apps
+    if: needs.apps.outputs.apps != '[]'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJSON(needs.apps.outputs.apps) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: scripts/install-hlb.sh
+      # The version published today is what an update is proven from.
+      - name: The published index
+        run: |
+          if git ls-remote --exit-code origin refs/heads/gh-pages >/dev/null; then
+            git clone -q --depth 1 --branch gh-pages "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$RUNNER_TEMP/published"
+          fi
+      - name: scripts/quality.sh ${{ matrix.app }}
+        env:
+          APP: ${{ matrix.app }}
+        run: sudo env "PATH=$PATH" scripts/quality.sh "$APP" "$RUNNER_TEMP/quality" "$RUNNER_TEMP/published"
+      # Written whatever happened: a failed step is a result too.
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: quality-${{ matrix.app }}
+          path: ${{ runner.temp }}/quality/${{ matrix.app }}.json
+          if-no-files-found: ignore
+          retention-days: 90

@@ -2,16 +2,23 @@ name: Index
 
 # Builds the next index from main, for the owner to sign on their own machine
 # (`scripts/publish.sh`): no key is ever here. Twice a month too, so a fresh index can
-# be signed before the last one's 30 days run out, merge or not.
+# be signed before the last one's 30 days run out, merge or not — and again once the
+# Quality workflow has proven what was merged, so its results ride with the index.
 on:
   push:
     branches: [main]
   schedule:
     - cron: "0 4 1,15 * *"
+  workflow_run:
+    workflows: [Quality]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
+# `actions: read` downloads the Quality runs' results; nothing is written.
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: index
@@ -26,6 +33,26 @@ jobs:
         with:
           persist-credentials: false
       - run: scripts/install-hlb.sh
+      # The newest result of each app among main's last Quality runs — a pull request's
+      # run judged code main may never hold. Older than the published file's, a result
+      # is not taken (`hlb catalog index build` keeps the newer by its day).
+      - name: Quality results
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/runs"
+          ids=$(gh run list -R "$GITHUB_REPOSITORY" -w quality.yml -b main -s completed -L 20 \
+            --json databaseId,event -q '.[] | select(.event != "pull_request") | .databaseId')
+          for id in $ids; do
+            gh run download "$id" -R "$GITHUB_REPOSITORY" -p 'quality-*' -D "$RUNNER_TEMP/dl/$id" 2>/dev/null || continue
+            for f in "$RUNNER_TEMP/dl/$id"/*/*.json; do
+              # Runs are listed newest first: the first result of an app is its newest.
+              if [[ -f $f && ! -f $RUNNER_TEMP/runs/${f##*/} ]]; then
+                cp "$f" "$RUNNER_TEMP/runs/"
+              fi
+            done
+          done
+          ls "$RUNNER_TEMP/runs"
       # Over the index published today: every version it holds is carried, its counter
       # risen. Outside the checkout, whose every manifest.yaml would be read as an app.
       - name: hlb catalog index build
@@ -35,7 +62,8 @@ jobs:
             git clone -q --depth 1 --branch gh-pages "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$RUNNER_TEMP/published"
             previous=(--previous "$RUNNER_TEMP/published")
           fi
-          hlb catalog index build . "$RUNNER_TEMP/built" --source official "${previous[@]}"
+          hlb catalog index build . "$RUNNER_TEMP/built" --source official "${previous[@]}" \
+            --quality "$RUNNER_TEMP/runs"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: index
