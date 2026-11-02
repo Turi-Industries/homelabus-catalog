@@ -103,6 +103,29 @@ step hlb config exposure --domain "$domain" --node "$node" --internal --apply ||
 # Bulwark and Seafile read it at their first start, and refuse to install without one.
 step hlb config timezone UTC --apply || die "the time zone could not be set"
 
+# A `tier: nfs` volume is refused where no NFS server is configured: this machine serves
+# one, shaped like the storage node's (`hlb storage export`): one export, `crossmnt`,
+# everyone squashed to the owner of the NFS datasets — each volume its own directory,
+# made here as `hlb storage init` makes a dataset.
+mapfile -t shared < <(awk '/^ *- kind:/ {s=0; n=""} /^ *- kind: storage/ {s=1}
+    s && /^ *name:/ {n=$2} s && /^ *tier: nfs/ {print n}' "$repo/$app/manifest.yaml")
+if [[ ${#shared[@]} -gt 0 ]]; then
+    nfs=/srv/hlb-nfs
+    owner=10000
+    command -v exportfs >/dev/null || {
+        apt-get update -qq && apt-get install -y -qq nfs-kernel-server >/dev/null
+    } || die "no NFS server could be installed"
+    for v in "${shared[@]}"; do
+        install -d -o "$owner" -g "$owner" "$nfs/$app/$v"
+    done
+    install -d /etc/exports.d
+    echo "$nfs $addr(rw,sync,no_subtree_check,crossmnt,all_squash,anonuid=$owner,anongid=$owner)" \
+        >/etc/exports.d/hlb.exports
+    { systemctl restart nfs-server && exportfs -ra; } || die "the NFS export could not be served"
+    export HLB_NFS_SERVER=$addr HLB_NFS_EXPORT=$nfs
+    echo "── NFS: $nfs served to $addr for ${shared[*]}"
+fi
+
 # The platform services the app depends on, and Caddy, in the order they deploy.
 mapfile -t order < <(hlb order | sed -nE 's/^ *[0-9]+\. ([a-z0-9-]+).*/\1/p')
 declare -A deps
