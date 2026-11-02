@@ -49,8 +49,13 @@ jobs:
             schedule) apps=$all ;;
             workflow_dispatch) apps=${ASKED:-$all} ;;
             *)
-              apps=$(git diff --name-only "$BASE" HEAD | cut -d/ -f1 | sort -u |
-                grep -Fxf <(echo "$all") || true)
+              changed=$(git diff --name-only "$BASE" HEAD)
+              # A change to the cycle itself is proven on every app it runs.
+              if grep -qxE 'scripts/quality\.sh|\.github/workflows/quality\.yml' <<<"$changed"; then
+                apps=$all
+              else
+                apps=$(cut -d/ -f1 <<<"$changed" | sort -u | grep -Fxf <(echo "$all") || true)
+              fi
               ;;
           esac
           echo "apps=$(tr ' ' '\n' <<<"$apps" | jq -Rnc '[inputs | select(. != "")]')" >>"$GITHUB_OUTPUT"
