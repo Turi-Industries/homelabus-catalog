@@ -54,6 +54,10 @@ git -C "$tmp/pages" add -A
 git -C "$tmp/pages" commit -q -m "Index $counter"
 git -C "$tmp/pages" push -q origin gh-pages
 if ! gh api "repos/$repo/pages" >/dev/null 2>&1; then
-    gh api -X POST "repos/$repo/pages" -f 'source[branch]=gh-pages' -f 'source[path]=/' >/dev/null
+    # Pages answered the first publication with an empty body, which `gh` fails to
+    # parse after the site is made: what Pages says next is the verdict, not that exit.
+    gh api -X POST "repos/$repo/pages" -f 'source[branch]=gh-pages' -f 'source[path]=/' \
+        >/dev/null 2>&1 || true
+    gh api "repos/$repo/pages" >/dev/null 2>&1 || die "GitHub Pages could not be turned on for $repo"
 fi
 echo "✓ index $counter published: https://turi-industries.github.io/homelabus-catalog/index.json"
