@@ -31,7 +31,12 @@ spec:
       mode: native
       redirectPaths: ["/users/oidc/callback"]
 
-    # An encrypted SQLite database: hosts, credentials, SSH keys.
+    # Hosts, credentials, SSH keys: a SQLite database Termix holds IN MEMORY and
+    # writes out encrypted (`db.sqlite.encrypted`, its key in `.env` beside it — no
+    # SQLite header, so `sqlite: true` found nothing and failed every pass; 26.10.5).
+    # It writes after a change and every five minutes, through a `.tmp-*` renamed into
+    # place: copied live, the volume lags memory, and a temporary file vanishing under
+    # restic fails the pass. Stopped, it saves on SIGTERM first.
     #
     # 🔴 `backup: true` is indispensable AND not enough: the backup holds
     # the fleet's access. It is encrypted by the `age` vault like the rest, and it is
@@ -41,7 +46,7 @@ spec:
       path: /app/data
       tier: local
       backup: true
-      sqlite: true
+      copy: stopped
   env:
     # 🔴 `sso: native` created the client in PocketID; this is what tells Termix. It
     # takes no discovery URL: each endpoint is PocketID's own.
