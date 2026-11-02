@@ -1,0 +1,3 @@
+# The versions no installation may install any more, and why — signed with the index,
+# carried by every later one. `<app>: [ { version: "<version>", why: "<reason>" } ]`
+{}

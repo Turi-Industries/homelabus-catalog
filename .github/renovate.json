@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", "helpers:pinGitHubActionDigests"],
+  "description": "Every image moves through a pull request validation has to pass. Nothing merges by itself: an app is where people's data lives.",
+  "schedule": ["before 6am on monday"],
+  "minimumReleaseAge": "7 days",
+  "labels": ["dependencies"],
+  "prConcurrentLimit": 10,
+  "packageRules": [
+    {
+      "description": "An app is rehearsed before its version moves: one pull request per app, holding every image its manifest names — a companion moves with its app, never apart.",
+      "matchFileNames": ["*/manifest.yaml"],
+      "groupName": "{{parentDir}}"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Over 60,000 tags on ghcr (a variant per accelerator, a build per pull request): Renovate's lookup gives up. Immich requires it at the server's exact version, so the server's pull request says to move it by hand.",
+      "matchPackageNames": ["ghcr.io/immich-app/immich-machine-learning"],
+      "enabled": false
+    },
+    {
+      "matchFileNames": ["immich/**"],
+      "prBodyNotes": ["🔴 Move `immich-machine-learning` to the same tag, with its digest, in this pull request: Immich refuses a machine-learning service of another version, and Renovate cannot look it up."]
+    }
+  ],
+  "customManagers": [
+    {
+      "description": "Each image is named as { repo, tag, digest } on one line; `hlb catalog validate` refuses a tag and digest that disagree.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^[^/]+/manifest\\.yaml$/"],
+      "matchStrings": [
+        "image:\\s*(?:&[\\w-]+\\s*)?\\{\\s*repo:\\s*(?<depName>[^,\\s]+),\\s*tag:\\s*\"(?<currentValue>[^\"]+)\",\\s*digest:\\s*\"(?<currentDigest>sha256:[a-f0-9]{64})\""
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ]
+}

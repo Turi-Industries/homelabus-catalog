@@ -1,0 +1,40 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A pull request from anyone runs here: the token reads, and writes nothing. Each action
+# is pinned by the commit its tag named — a tag can be moved to other code.
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  validate:
+    name: hlb catalog validate
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: scripts/install-hlb.sh
+      # The apps of this checkout over the platform the mirrored hlb carries.
+      - run: hlb catalog validate --apps .
+      # What the index build refuses — an app set aside for this hlb, no `hlb` range —
+      # refused here, before the merge rather than after it.
+      - run: hlb catalog index build . "$RUNNER_TEMP/built" --source official
+
+  reuse:
+    name: Licences
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6.0.0

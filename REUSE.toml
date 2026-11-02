@@ -1,0 +1,15 @@
+# Who owns each file and under what licence (https://reuse.software/spec-3.3/).
+version = 1
+
+[[annotations]]
+path = "**"
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Turi Industries <contact@turi-industries.eu>"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# What other projects published: their logos.
+[[annotations]]
+path = ["**/icon.svg", "**/icon.png"]
+precedence = "override"
+SPDX-FileCopyrightText = "Each file's upstream project"
+SPDX-License-Identifier = "LicenseRef-Upstream"

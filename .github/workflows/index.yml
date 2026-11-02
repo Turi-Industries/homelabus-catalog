@@ -1,0 +1,44 @@
+name: Index
+
+# Builds the next index from main, for the owner to sign on their own machine
+# (`scripts/publish.sh`): no key is ever here. Twice a month too, so a fresh index can
+# be signed before the last one's 30 days run out, merge or not.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 4 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build the index
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: scripts/install-hlb.sh
+      # Over the index published today: every version it holds is carried, its counter
+      # risen. Outside the checkout, whose every manifest.yaml would be read as an app.
+      - name: hlb catalog index build
+        run: |
+          previous=()
+          if git ls-remote --exit-code origin refs/heads/gh-pages >/dev/null; then
+            git clone -q --depth 1 --branch gh-pages "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$RUNNER_TEMP/published"
+            previous=(--previous "$RUNNER_TEMP/published")
+          fi
+          hlb catalog index build . "$RUNNER_TEMP/built" --source official "${previous[@]}"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: index
+          path: ${{ runner.temp }}/built
+          if-no-files-found: error
+          retention-days: 30
