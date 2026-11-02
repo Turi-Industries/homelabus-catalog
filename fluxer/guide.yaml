@@ -87,22 +87,24 @@ steps:
   # Run by `hlb backup restore`, never by an install. Judged by the job's end, read
   # back from the api: the relay exits 0 whatever the api said, and the api's 200 says
   # the job was QUEUED — the worker then failed it, and nothing else said so.
-  # 🔴 On Meilisearch, 2026.1026 and 2026.1027 initialise the threads' index only
+  # 🔴 On Meilisearch, 2026.1026 to 2026.1102 initialise the threads' index only
   # when something asks it to be ready, and the `all` refresh empties it without
   # asking: "Meilisearch adapter not initialised", the messages never reached. A
   # `threads` refresh of one community asks first, in the worker that then runs
-  # `all` — proven on the lab, the messages' index back from 0. Any real community
-  # does: a made-up id would leave a marker row behind. With none, `all` fails as
-  # before. Drop the first refresh once Fluxer asks before it empties.
+  # `all` — proven on the lab, the messages' index back from 0. A house with no
+  # community (its messages all direct ones) asks for community 1, which no snowflake
+  # can be: that writes one `guild_thread_state` row Fluxer reads by its key alone,
+  # never by a scan — inert, where failing left the direct messages unsearchable
+  # after every restore. Drop the first refresh once Fluxer asks before it empties.
   - id: rebuild-message-search
     title: Rebuild the messages' search index
     phase: post-restore
     body: |
       The communities' and people's indexes refill by themselves; the messages'
       come back when asked, from Fluxer's api. Ask first for one community's
-      threads (its id from GET /admin/guilds?limit=1) — the full refresh fails
-      without it — then for everything, and read each job's state with
-      GET /admin/search/index-refreshes/<job_id> the same way:
+      threads (its id from GET /admin/guilds?limit=1, or 1 with no community) —
+      the full refresh fails without it — then for everything, and read each job's
+      state with GET /admin/search/index-refreshes/<job_id> the same way:
 
         docker exec -i $(docker ps -qf name=fluxer-api) node bin/operator-relay.mjs \
           <<< '{"target":"operator","method":"POST","path":"/admin/search/indexes/threads/refreshes","body":{"guild_id":"<id>"}}'
@@ -136,7 +138,7 @@ steps:
             }
             guild=$(echo '{"target":"operator","method":"GET","path":"/admin/guilds?limit=1"}' | relay \
               | sed -n 's/.*"guilds":\[{"id":"\([0-9]*\)".*/\1/p')
-            if [ -n "$guild" ]; then refresh threads "{\"guild_id\":\"$guild\"}" || exit 1; fi
+            refresh threads "{\"guild_id\":\"${guild:-1}\"}" || exit 1
             refresh all '{}'
 
   - id: phone-notifications
