@@ -177,12 +177,9 @@ install() {
 
 for s in "${order[@]}"; do
     [[ -n ${needed[$s]:-} ]] || continue
+    # Garage's layout is the bucket step's to give (hlb 0.4.2): not given here, so the
+    # install is proven on a Garage that has none.
     step install "$s" || die "the platform service $s could not be installed"
-    # Garage stores nothing until each node has its place in the layout: an app creating
-    # its buckets right after is refused "Layout not ready".
-    if [[ $s == garage ]]; then
-        step hlb garage init --apply || die "Garage's layout could not be applied"
-    fi
 done
 
 # Its assertions, until each was read: `hlb assert` exits 2 while one is unknown (an
