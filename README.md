@@ -10,11 +10,17 @@ folder per app, its `manifest.yaml` and, when it needs steps after it starts, it
 1. A pull request adds or changes a folder. CI validates it with a released `hlb`,
    against the platform services (PostgreSQL, PocketID, Caddy…) that release carries —
    they move with `hlb`, never here.
-2. Merged, CI builds the next signed **index**: every file of every app hashed, each
-   version kept so an older `hlb` still finds the last one its range accepts.
-3. The owner signs it on their own machine (`scripts/publish.sh`) and publishes it to
+2. CI proves the app on a fresh single-node house (`scripts/quality.sh`): installed,
+   updated from the version published, backed up, restored, its assertions held,
+   removed. Every app again each week — an image moving under its tag breaks without a
+   commit here.
+3. Merged, CI builds the next signed **index**: every file of every app hashed, each
+   version kept so an older `hlb` still finds the last one its range accepts — and
+   beside it `quality-v1.json`, each app's last run and the day it entered, which the
+   interface shows as *proven, maintained for N months*.
+4. The owner signs both on their own machine (`scripts/publish.sh`) and publishes it to
    GitHub Pages, at <https://turi-industries.github.io/homelabus-catalog>.
-4. Each installation fetches it every night, checks its signature against the key
+5. Each installation fetches it every night, checks its signature against the key
    compiled into `hlb`, refuses an index older than the last one it read, and offers
    what is new.
 

@@ -34,6 +34,14 @@ hlb catalog validate --apps .        # this checkout's apps over your hlb's plat
 - **A secret reaches a container as a file**, never through its environment, which
   `docker inspect` shows to anyone reading the Swarm.
 
+The pull request is then proven whole (the Quality workflow): installed on a fresh house,
+updated from the version published, backed up, restored and removed, its assertions read
+after each step. To run it yourself, on a machine made for it — it becomes a Swarm:
+
+```sh
+sudo scripts/quality.sh <app> /tmp/quality [<a checkout of the gh-pages branch>]
+```
+
 Keep a pull request to one app, and say in it how it was checked: the command, and what
 it showed. A change to what an app does is best shown on a real cluster; say if it was
 not.
