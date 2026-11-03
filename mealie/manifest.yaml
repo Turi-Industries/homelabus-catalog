@@ -106,7 +106,6 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 9000
-      chain: [caddy-front, caddy-back]
       # Private until the guide has replaced the seeded administrator's password.
       expose: after-guide
       authRoutes:

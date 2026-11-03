@@ -226,8 +226,7 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 3000
-      # No Anubis: a proof-of-work in front of the Git endpoint would break `git clone`.
-      chain: [caddy-front, caddy-back]
+      # A proof-of-work in front of the Git endpoint would break `git clone`.
       expose: after-guide      # The first to sign in is the administrator
       # Gitea 1.27 answers a wrong password, and a wrong code, with the form again — a
       # 200 —, so only the limit bounds them. A second factor is its own route: a

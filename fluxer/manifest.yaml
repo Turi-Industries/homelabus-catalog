@@ -697,9 +697,8 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 8080
-      # No Anubis: the desktop and phone apps solve no challenge, and the gateway and
-      # LiveKit are websockets.
-      chain: [caddy-front, caddy-back]
+      # No proof-of-work: the desktop and phone apps solve no challenge, and the gateway
+      # and LiveKit are websockets.
       expose: after-guide
       # The compose's edge Caddy, path for path.
       paths:

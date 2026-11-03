@@ -80,7 +80,6 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 5678
-      chain: [caddy-back]
       # 🔴 Private. n8n stores the credentials of EVERY service it drives:
       # API keys, tokens, passwords. It is a vault that does not know it.
       expose: private

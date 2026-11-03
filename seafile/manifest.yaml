@@ -320,9 +320,8 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 80
-      # No Anubis: the desktop sync client is not a browser and would solve no
+      # No proof-of-work: the desktop sync client is not a browser and would solve no
       # challenge.
-      chain: [caddy-front, caddy-back]
       expose: after-guide
       # Websockets, its prefix taken off: the server answers `/ping` and `/`.
       paths:

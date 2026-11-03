@@ -50,9 +50,8 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 3000
-      # No Anubis: the client makes long JMAP requests in the background and a
-      # proof-of-work would break them.
-      chain: [caddy-front, caddy-back]
+      # The client makes long JMAP requests in the background, and a proof-of-work
+      # would break them.
       # 🔴 Private as long as the project is not mature. A public webmail is a sign-in
       # page facing the internet, and this one comes from a one-star project.
       expose: private

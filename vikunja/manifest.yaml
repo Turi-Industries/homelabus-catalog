@@ -91,10 +91,6 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 3456
-      # No Anubis by default: it would make installing Vikunja require it. To put a
-      # proof-of-work in front, `hlb install anubis --apply`, then name it here:
-      # [caddy-front, anubis, caddy-back].
-      chain: [caddy-front, caddy-back]
       expose: after-guide
       # A wrong password is a 403 in Vikunja 2.7 — a 412 in 0.24 —, never a 401.
       authRoutes:
