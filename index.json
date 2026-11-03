@@ -1,7 +1,7 @@
 {
   "source": "official",
-  "counter": 2,
-  "expires": 1796252315,
+  "counter": 3,
+  "expires": 1796336762,
   "apps": {
     "bulwark": [
       {
@@ -10,6 +10,17 @@
         "files": {
           "guide.yaml": "869e4bffa9c67ad7c54a90d6bdb2e1f035a8c92e641c142adf8c0b69e47ff5da",
           "manifest.yaml": "78eaa0703f9f6be69c0ee3ebdf6686d00b9e34a3321d36c6131402b71f72661a"
+        },
+        "images": [
+          "ghcr.io/bulwarkmail/webmail:1.18.0@sha256:a985e7e40eccc70f7c7dc5d6eceaf3429ab3b644a6cf58deb240a04d39a77738"
+        ]
+      },
+      {
+        "version": "1.18.0~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "869e4bffa9c67ad7c54a90d6bdb2e1f035a8c92e641c142adf8c0b69e47ff5da",
+          "manifest.yaml": "f0090de52fb8b136909ad251322fd4f7f932f592627575696f84dc727364e98c"
         },
         "images": [
           "ghcr.io/bulwarkmail/webmail:1.18.0@sha256:a985e7e40eccc70f7c7dc5d6eceaf3429ab3b644a6cf58deb240a04d39a77738"
@@ -74,6 +85,35 @@
           "ghcr.io/fluxerapp/fluxer-admin:2026.1027.190827@sha256:ce465b52287c2d660458770714e589c18edbfbbe233d90e6ef4c21647cae4937",
           "livekit/livekit-server:v1.13.11@sha256:25cd902de7cacbd5f1f779f6a6ac1eae20ba8f56b0935934ce6b0ab80d1e3d20"
         ]
+      },
+      {
+        "version": "2026.1027.190751~hlb3",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "0aa9a302293139354bead65168912a6337b8e1bc203c188fc32a6794365b3484",
+          "icon.png": "624fd2248ecc3d0af00f3b25d72cbb578f6be415c887fee574bd3552f28b5773",
+          "icon.svg": "a27c29c343fd80f0c82ba3ff1b2df9a6801a0a4ff60d0ff628b726033b7994ad",
+          "manifest.yaml": "b1738542b3623d2b9d8bca53544bb753b110716658b4c180c29218a2c26fa1f7"
+        },
+        "images": [
+          "ghcr.io/fluxerapp/fluxer-app-proxy-self-hosted:2026.1027.190751@sha256:aec368cfc99c4a0e55e8be06d8f4e5e9b8720cd7f1068b0c7610e858e514a59e",
+          "valkey/valkey:9-alpine@sha256:bf09d58e96d6b4524a15396b65b242bbe18beebbcc15a04d8ee75ddac62fae0b",
+          "nats:2.15-alpine@sha256:5fe569eab270ed1ac62e7974b80e86db130d33f464fe276beedd9003f50576dc",
+          "getmeili/meilisearch:v1.56@sha256:1f578fa865f8251894b3bf38d6668d6209a3f451f8f65ab953e129d4c1db5ef4",
+          "ghcr.io/fluxerapp/fluxer-snowflakes:2026.1027.190820@sha256:ba6d231b2ab535269ffe0d5c25fce9b4aae82938b0367db30df9fbfc8eba2b29",
+          "ghcr.io/fluxerapp/fluxer-users:2026.1027.190837@sha256:3a8be98697f46c7688568d78b7da1cba7df9b4ed2c59855a7a9dbe222aedfd7e",
+          "ghcr.io/fluxerapp/fluxer-gifs:2026.1027.190843@sha256:5aebd6773c11f0ecc163cd40c3d063cc824c80d51ac6d44557fe1c3d70f77e72",
+          "ghcr.io/fluxerapp/fluxer-messages:2026.1027.190820@sha256:377987ff361857e653c55571569ef0c4c66d4e66bc1a215032253c4fa9aa3df2",
+          "ghcr.io/fluxerapp/fluxer-media-proxy:2026.1027.190818@sha256:b8bf52aaa0152d91c94b9f4aa4076b1e4aa963fff953bbe12adae961ffc78a31",
+          "ghcr.io/fluxerapp/fluxer-unfurl:2026.1027.190906@sha256:6a2833ff6e4ccb0f0470a9f1f41c00fa909a634bb3cb2b466400ed57a1b3a92d",
+          "ghcr.io/fluxerapp/fluxer-api:2026.1027.190743@sha256:f78ceb022013796eee6150047aec263745a713f615b8c64e6aaa7a0d1190575e",
+          "ghcr.io/fluxerapp/fluxer-api:2026.1027.190743@sha256:f78ceb022013796eee6150047aec263745a713f615b8c64e6aaa7a0d1190575e",
+          "ghcr.io/fluxerapp/fluxer-gateway:2026.1027.190817@sha256:fc2c27be1ca4070ca89e869fd711147da81b63c025e3b1ec2affe8c1c8c26577",
+          "ghcr.io/fluxerapp/fluxer-push:2026.1027.190820@sha256:6db795e9dabbc503a8379a7d5d39a19a8fc59fda207a0047cecd714a1763fd55",
+          "ghcr.io/fluxerapp/fluxer-static:2026.1027.190837@sha256:43044318df4c23499c9d8234841f8aa7a1080c27e0750c166123c0a0a360ef1a",
+          "ghcr.io/fluxerapp/fluxer-admin:2026.1027.190827@sha256:ce465b52287c2d660458770714e589c18edbfbbe233d90e6ef4c21647cae4937",
+          "livekit/livekit-server:v1.13.11@sha256:25cd902de7cacbd5f1f779f6a6ac1eae20ba8f56b0935934ce6b0ab80d1e3d20"
+        ]
       }
     ],
     "gitea": [
@@ -85,6 +125,19 @@
           "icon.png": "f96c491c09f8fb777043d61de1883f85e6d1cc062c466e8ceb38313e363e85f0",
           "icon.svg": "46c0b753087e6d687d2ca2d5267d9a635e5d22858e5a99d7673920199c7226f3",
           "manifest.yaml": "a6f405931db403b774738f2c9e4a571cc3b3ebfd2c315cf33094eaddc5bbb08c"
+        },
+        "images": [
+          "gitea/gitea:28.2@sha256:30777c91280d973fa02be48b1ade735bd6859e8f6f7af3b4444d519437852504"
+        ]
+      },
+      {
+        "version": "28.2~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "5479eebefdc8b87388a48c2e83e9b2aefeb21a0aeeadc2122c99b41586723054",
+          "icon.png": "f96c491c09f8fb777043d61de1883f85e6d1cc062c466e8ceb38313e363e85f0",
+          "icon.svg": "46c0b753087e6d687d2ca2d5267d9a635e5d22858e5a99d7673920199c7226f3",
+          "manifest.yaml": "008b8438c76c6c24392917588d2d92cb1c0466b8dae8bfae51cb6d90b01daeaa"
         },
         "images": [
           "gitea/gitea:28.2@sha256:30777c91280d973fa02be48b1ade735bd6859e8f6f7af3b4444d519437852504"
@@ -105,6 +158,20 @@
           "ghcr.io/immich-app/immich-server:v3.3.1@sha256:db996e352359771c6a3db121a0ed8761516b22f727fc092a0f46dcfef82c1bc1",
           "ghcr.io/immich-app/immich-machine-learning:v3.3.1@sha256:513c831cfb010ad319341a0c86b42c575a0d5b688d3e8cae346ee624074a58ed"
         ]
+      },
+      {
+        "version": "v3.3.1~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "22fa10e21ae8fdaca5d226fca4953286ea1e52a19c37a603a220c52b9942b556",
+          "icon.png": "6c391ed8d0fdc696afadf4eef012c1f3cdf67743031425068284a38fbd0bd097",
+          "icon.svg": "dfa5ef704d07854914306c0c224173bda2710f8fc0dffeb7d78690f58f9811a6",
+          "manifest.yaml": "c0f975de6e61f854d6f5582735e7c32c364740757c40a23060b3ec3b8f8abb8b"
+        },
+        "images": [
+          "ghcr.io/immich-app/immich-server:v3.3.1@sha256:db996e352359771c6a3db121a0ed8761516b22f727fc092a0f46dcfef82c1bc1",
+          "ghcr.io/immich-app/immich-machine-learning:v3.3.1@sha256:513c831cfb010ad319341a0c86b42c575a0d5b688d3e8cae346ee624074a58ed"
+        ]
       }
     ],
     "jellyfin": [
@@ -116,6 +183,19 @@
           "icon.png": "e922abde21fe73c300c21e98267652e0c2b435f0831832e9ee4d90cec03c3c45",
           "icon.svg": "817c25b47442b192250448fe48cd5f265fe9183bc75aa12030bbe335495255d1",
           "manifest.yaml": "bf93f5e250c85a8e56ae165ecd8d38394c484e908f5495a90fa7690bdd7c6b90"
+        },
+        "images": [
+          "jellyfin/jellyfin:12.4@sha256:fea863d0cd9ec445985d9c75fc6ed64e38a1d2766cf0c250a33d553f4fc1b771"
+        ]
+      },
+      {
+        "version": "12.4~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "feba29d65d146877c15673a1255f23daa026b7fb600271258a778c966996a058",
+          "icon.png": "e922abde21fe73c300c21e98267652e0c2b435f0831832e9ee4d90cec03c3c45",
+          "icon.svg": "817c25b47442b192250448fe48cd5f265fe9183bc75aa12030bbe335495255d1",
+          "manifest.yaml": "bff9f7ef1d132dae1b927d9c3ffb32ad570c7c4c37ac723c869a4ca321ae2d05"
         },
         "images": [
           "jellyfin/jellyfin:12.4@sha256:fea863d0cd9ec445985d9c75fc6ed64e38a1d2766cf0c250a33d553f4fc1b771"
@@ -134,6 +214,18 @@
         "images": [
           "ghcr.io/librespeed/speedtest:6.3.1-alpine@sha256:2db012618515bfe8c8d825ce155e6a9122d78849e21535ecd1e74ef42884979a"
         ]
+      },
+      {
+        "version": "6.3.1-alpine~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "e1e31f009714f3ebc1a9d8642da8a5107d81ea5d22deef0e8d327ae3ceeac4cc",
+          "icon.png": "3e3ade08a362dd74f7188f7703594671e24493af48c5310dcab6b721ca388e4f",
+          "manifest.yaml": "57e2f5c570e3564c578b5be9d8e6dfb748c8c7c12ded97179786f4c9373afc8a"
+        },
+        "images": [
+          "ghcr.io/librespeed/speedtest:6.3.1-alpine@sha256:2db012618515bfe8c8d825ce155e6a9122d78849e21535ecd1e74ef42884979a"
+        ]
       }
     ],
     "mealie": [
@@ -144,6 +236,18 @@
           "guide.yaml": "3554758f8222dcef58c607bcd001496981ae67bca7deabc4c7ef73c1047c60be",
           "icon.png": "2b5d060d510bc0629550576cb111f702593cb49fee05afb76fc4c535601c7626",
           "manifest.yaml": "0dc7b63d858f577f71c6a593741decdec9ba7e07b9e1767efa1007942bf15574"
+        },
+        "images": [
+          "ghcr.io/mealie-recipes/mealie:v3.29.0@sha256:78eb28b8776d0bad40c5e605c72b3f4f5976793e491558c7dcbdfc04c835d4bc"
+        ]
+      },
+      {
+        "version": "v3.29.0~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "3554758f8222dcef58c607bcd001496981ae67bca7deabc4c7ef73c1047c60be",
+          "icon.png": "2b5d060d510bc0629550576cb111f702593cb49fee05afb76fc4c535601c7626",
+          "manifest.yaml": "1f7f51070239329e73849dd465c1409a8a0f2b4979b9ed98fe7c2b02883ce9c8"
         },
         "images": [
           "ghcr.io/mealie-recipes/mealie:v3.29.0@sha256:78eb28b8776d0bad40c5e605c72b3f4f5976793e491558c7dcbdfc04c835d4bc"
@@ -163,6 +267,19 @@
         "images": [
           "n8nio/n8n:3.0.0@sha256:d4f906d680d992205fee7c71028490c1d933ab77d024b6f8260ed99dd31b8066"
         ]
+      },
+      {
+        "version": "3.0.0~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "6c8945f4c153b71393b6b21f2e83616876554a522e3c8bff20d7b7368b0f2dff",
+          "icon.png": "9dcf0d37d239d803b2eba1af8d75c3249b12d9c3e787283494c11f671c192746",
+          "icon.svg": "60fae0fad9d8b57c88e18225290d6d31adb2372aca5cb7da65960c2e1f006cb2",
+          "manifest.yaml": "e01ada2c0bb07f656dcb0c1f10f67f17562d4ef93f1adf799b04a02c9fdc0308"
+        },
+        "images": [
+          "n8nio/n8n:3.0.0@sha256:d4f906d680d992205fee7c71028490c1d933ab77d024b6f8260ed99dd31b8066"
+        ]
       }
     ],
     "roundcube": [
@@ -178,6 +295,19 @@
         "images": [
           "roundcube/roundcubemail:1.7.5-apache@sha256:a6ef4cff166b5e2056238bb400ca84210bd796c83d859495ab67e60101ff2c55"
         ]
+      },
+      {
+        "version": "1.7.5-apache~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "b068014fec8c5fe9d7158134379778cafe7aa7e5e80da46289aa9815063f9e83",
+          "icon.png": "c840465b13bf07ecbc983c2552316e8ff6835103292d53befa3c32f47752f971",
+          "icon.svg": "2b2d9c7a82f92976268b03e13c61f64ead91a3c63b97c59cef2acbf501f67618",
+          "manifest.yaml": "7c8dc5d1f5e7da461bfe2b7ba81ff587a38a1a69660b5ead7fb69b172eafe112"
+        },
+        "images": [
+          "roundcube/roundcubemail:1.7.5-apache@sha256:a6ef4cff166b5e2056238bb400ca84210bd796c83d859495ab67e60101ff2c55"
+        ]
       }
     ],
     "seafile": [
@@ -189,6 +319,20 @@
           "icon.png": "01e4c71ae98393410f8a699533f77eeb3e76b042689243ecbd9e0ca74ab18e57",
           "icon.svg": "f02351e246fae21f316434cfc38c7327eea50c4a63232080ebb24d0c1296197f",
           "manifest.yaml": "e0d9b131990f5ca3e527afe8ab7bc377421f8e3fe60b6ac43ec3aaaeff4d6b4f"
+        },
+        "images": [
+          "seafileltd/seafile-mc:14.0.9@sha256:75d8b88e8bfaa54099082aec0e99ff1a962bd364bfc21da34125fa66998f0861",
+          "seafileltd/notification-server:14.0.8@sha256:f442e9ae3a12f0f30371e054f30b8edf692a20e1331a6b81d4e5f51d49de8e94"
+        ]
+      },
+      {
+        "version": "14.0.9~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "2306eceef556e82e45aa79fb571cee4b739b45157a5e5eb1cbf7e9557798606c",
+          "icon.png": "01e4c71ae98393410f8a699533f77eeb3e76b042689243ecbd9e0ca74ab18e57",
+          "icon.svg": "f02351e246fae21f316434cfc38c7327eea50c4a63232080ebb24d0c1296197f",
+          "manifest.yaml": "1ce0eb2bde60c5cc9cae2a0cee182bb121daba0912f8776dd1ce249361e47031"
         },
         "images": [
           "seafileltd/seafile-mc:14.0.9@sha256:75d8b88e8bfaa54099082aec0e99ff1a962bd364bfc21da34125fa66998f0861",
@@ -222,6 +366,19 @@
         "images": [
           "ghcr.io/lukegus/termix:26.10.5@sha256:28a627c1e2a568ea8c2d3fd83861675fdd3d8327a09f5a245c399b4864ad5ceb"
         ]
+      },
+      {
+        "version": "26.10.5~hlb3",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "22bc98f3dfd3422517ceb3576b35ab07af8529cc030c724214245e31b02d77cb",
+          "icon.png": "7bb823e83c20f2bb49514e3f66389c75ede841075fd1803f3bd79e63174cd999",
+          "icon.svg": "dafa1fd0b86d688f3921b8a967dfb530a94bfea1f072b45a97a2a918e325cd71",
+          "manifest.yaml": "c2a7adddbba1fb4c510dd804e8f478bb4783ca98d6cdbef342eec2addf2a8f6e"
+        },
+        "images": [
+          "ghcr.io/lukegus/termix:26.10.5@sha256:28a627c1e2a568ea8c2d3fd83861675fdd3d8327a09f5a245c399b4864ad5ceb"
+        ]
       }
     ],
     "vaultwarden": [
@@ -237,6 +394,19 @@
         "images": [
           "vaultwarden/server:1.37.4@sha256:efb3cde962015fcc036b2ea625242248611943b27212ebf4392841fb30fad055"
         ]
+      },
+      {
+        "version": "1.37.4~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "e0c24318f9487fb29bfbf19ba63ab7bcc0b309f39362377c2a8bb95f2a9c72e6",
+          "icon.png": "d2aeaa0c85289e7a615030e82ca74d5bc98c2d6172d6436b4063f703244afa4b",
+          "icon.svg": "84c3e684403e90240c4c9eb249c4f0797016e55f4d3c7f97509541a77ce969c9",
+          "manifest.yaml": "92622c764a5e585a82b31f213ba2f71c99e315fc633867075e543fb2fcbb83ec"
+        },
+        "images": [
+          "vaultwarden/server:1.37.4@sha256:efb3cde962015fcc036b2ea625242248611943b27212ebf4392841fb30fad055"
+        ]
       }
     ],
     "vikunja": [
@@ -248,6 +418,19 @@
           "icon.png": "6bacca568f6fb360aaad4cc7eec6eb750d8cc24c9c94125da3f294f3d4d88d88",
           "icon.svg": "e9fb68e85ab8b5719594f24b94711c96d9c2345393219a6d857e81fa44e56b76",
           "manifest.yaml": "dfe610e4b69679f298ce4932007a5a0ff08f0f3b465e00c9206a9ca39e62d929"
+        },
+        "images": [
+          "vikunja/vikunja:2.7@sha256:f7dc8428d10aef17f3075886d3c1c022f566ec456f88985f02c137f4fc534576"
+        ]
+      },
+      {
+        "version": "2.7~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "79d81995d91b1b90558f61f6157ae8b443c8f9766cd149e8db3c6f60eece1f1f",
+          "icon.png": "6bacca568f6fb360aaad4cc7eec6eb750d8cc24c9c94125da3f294f3d4d88d88",
+          "icon.svg": "e9fb68e85ab8b5719594f24b94711c96d9c2345393219a6d857e81fa44e56b76",
+          "manifest.yaml": "6a3774b470c1489d1ab1e5da2bdc51a31fe35e06b9ad1f98b5a6ea82fe2a70b3"
         },
         "images": [
           "vikunja/vikunja:2.7@sha256:f7dc8428d10aef17f3075886d3c1c022f566ec456f88985f02c137f4fc534576"
