@@ -1,7 +1,7 @@
 {
   "source": "official",
-  "counter": 1,
-  "expires": 1796215964,
+  "counter": 2,
+  "expires": 1796252315,
   "apps": {
     "bulwark": [
       {
@@ -22,6 +22,35 @@
         "hlb": ">=0.4.0",
         "files": {
           "guide.yaml": "7b277e6303612fbe7a24f70066b01b9078800463fcee9ab704aa0d4adfeaa8f9",
+          "icon.png": "624fd2248ecc3d0af00f3b25d72cbb578f6be415c887fee574bd3552f28b5773",
+          "icon.svg": "a27c29c343fd80f0c82ba3ff1b2df9a6801a0a4ff60d0ff628b726033b7994ad",
+          "manifest.yaml": "28a8a700fa849db6611ef6ada61d383df9baf43b27fc28fc04d39669025b6465"
+        },
+        "images": [
+          "ghcr.io/fluxerapp/fluxer-app-proxy-self-hosted:2026.1027.190751@sha256:aec368cfc99c4a0e55e8be06d8f4e5e9b8720cd7f1068b0c7610e858e514a59e",
+          "valkey/valkey:9-alpine@sha256:bf09d58e96d6b4524a15396b65b242bbe18beebbcc15a04d8ee75ddac62fae0b",
+          "nats:2.15-alpine@sha256:5fe569eab270ed1ac62e7974b80e86db130d33f464fe276beedd9003f50576dc",
+          "getmeili/meilisearch:v1.56@sha256:1f578fa865f8251894b3bf38d6668d6209a3f451f8f65ab953e129d4c1db5ef4",
+          "ghcr.io/fluxerapp/fluxer-snowflakes:2026.1027.190820@sha256:ba6d231b2ab535269ffe0d5c25fce9b4aae82938b0367db30df9fbfc8eba2b29",
+          "ghcr.io/fluxerapp/fluxer-users:2026.1027.190837@sha256:3a8be98697f46c7688568d78b7da1cba7df9b4ed2c59855a7a9dbe222aedfd7e",
+          "ghcr.io/fluxerapp/fluxer-gifs:2026.1027.190843@sha256:5aebd6773c11f0ecc163cd40c3d063cc824c80d51ac6d44557fe1c3d70f77e72",
+          "ghcr.io/fluxerapp/fluxer-messages:2026.1027.190820@sha256:377987ff361857e653c55571569ef0c4c66d4e66bc1a215032253c4fa9aa3df2",
+          "ghcr.io/fluxerapp/fluxer-media-proxy:2026.1027.190818@sha256:b8bf52aaa0152d91c94b9f4aa4076b1e4aa963fff953bbe12adae961ffc78a31",
+          "ghcr.io/fluxerapp/fluxer-unfurl:2026.1027.190906@sha256:6a2833ff6e4ccb0f0470a9f1f41c00fa909a634bb3cb2b466400ed57a1b3a92d",
+          "ghcr.io/fluxerapp/fluxer-api:2026.1027.190743@sha256:f78ceb022013796eee6150047aec263745a713f615b8c64e6aaa7a0d1190575e",
+          "ghcr.io/fluxerapp/fluxer-api:2026.1027.190743@sha256:f78ceb022013796eee6150047aec263745a713f615b8c64e6aaa7a0d1190575e",
+          "ghcr.io/fluxerapp/fluxer-gateway:2026.1027.190817@sha256:fc2c27be1ca4070ca89e869fd711147da81b63c025e3b1ec2affe8c1c8c26577",
+          "ghcr.io/fluxerapp/fluxer-push:2026.1027.190820@sha256:6db795e9dabbc503a8379a7d5d39a19a8fc59fda207a0047cecd714a1763fd55",
+          "ghcr.io/fluxerapp/fluxer-static:2026.1027.190837@sha256:43044318df4c23499c9d8234841f8aa7a1080c27e0750c166123c0a0a360ef1a",
+          "ghcr.io/fluxerapp/fluxer-admin:2026.1027.190827@sha256:ce465b52287c2d660458770714e589c18edbfbbe233d90e6ef4c21647cae4937",
+          "livekit/livekit-server:v1.13.11@sha256:25cd902de7cacbd5f1f779f6a6ac1eae20ba8f56b0935934ce6b0ab80d1e3d20"
+        ]
+      },
+      {
+        "version": "2026.1027.190751~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "0aa9a302293139354bead65168912a6337b8e1bc203c188fc32a6794365b3484",
           "icon.png": "624fd2248ecc3d0af00f3b25d72cbb578f6be415c887fee574bd3552f28b5773",
           "icon.svg": "a27c29c343fd80f0c82ba3ff1b2df9a6801a0a4ff60d0ff628b726033b7994ad",
           "manifest.yaml": "28a8a700fa849db6611ef6ada61d383df9baf43b27fc28fc04d39669025b6465"
@@ -176,6 +205,19 @@
           "icon.png": "7bb823e83c20f2bb49514e3f66389c75ede841075fd1803f3bd79e63174cd999",
           "icon.svg": "dafa1fd0b86d688f3921b8a967dfb530a94bfea1f072b45a97a2a918e325cd71",
           "manifest.yaml": "2c2c0b25dd9255dd3c8f15ae0b7c31bc21b792560d17210120e56d6756a87620"
+        },
+        "images": [
+          "ghcr.io/lukegus/termix:26.10.5@sha256:28a627c1e2a568ea8c2d3fd83861675fdd3d8327a09f5a245c399b4864ad5ceb"
+        ]
+      },
+      {
+        "version": "26.10.5~hlb2",
+        "hlb": ">=0.4.0",
+        "files": {
+          "guide.yaml": "22bc98f3dfd3422517ceb3576b35ab07af8529cc030c724214245e31b02d77cb",
+          "icon.png": "7bb823e83c20f2bb49514e3f66389c75ede841075fd1803f3bd79e63174cd999",
+          "icon.svg": "dafa1fd0b86d688f3921b8a967dfb530a94bfea1f072b45a97a2a918e325cd71",
+          "manifest.yaml": "f952f1471dbb176110bccb33673f52bd0e4799f525f78241a52590a48654a25d"
         },
         "images": [
           "ghcr.io/lukegus/termix:26.10.5@sha256:28a627c1e2a568ea8c2d3fd83861675fdd3d8327a09f5a245c399b4864ad5ceb"
