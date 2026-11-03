@@ -67,7 +67,6 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 80
-      chain: [caddy-front, caddy-back]
       # 🔴 Private. It is a sign-in form for EVERY mailbox in the domain: public, it
       # becomes the most profitable credential-stuffing target of the installation.
       expose: private

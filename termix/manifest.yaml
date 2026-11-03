@@ -127,7 +127,6 @@ spec:
       # way in to every machine, protected by a single password. `after-guide` would
       # not be enough: it is not the first registrant's window that is at stake, it is
       # the exposure itself.
-      chain: [caddy-back]
       expose: private
   # Termix reads the client's secret from its environment only (26.10.5): set from
   # its file for the process alone, then the image's `Entrypoint` and `Cmd`.

@@ -22,8 +22,7 @@ spec:
     # line. The app exposes no data and keeps nothing.
     - host: "{{ domain }}"
       port: 8080
-      # No Anubis: a proof-of-work would skew the very measurement you came to take.
-      chain: [caddy-front, caddy-back]
+      # A proof-of-work would skew the very measurement you came to take.
       expose: public
   security:
     # nginx writes its temporary files and its PID.

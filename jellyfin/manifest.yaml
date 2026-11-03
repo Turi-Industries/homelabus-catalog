@@ -55,8 +55,7 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 8096
-      # No Anubis: a proof-of-work would break every non-browser client.
-      chain: [caddy-front, caddy-back]
+      # A proof-of-work would break every non-browser client.
       # 🔴 Private. The SSO is a button beside Jellyfin's own password form, which stays
       # — the administrator's recovery sign-in goes through it — and a public exposure
       # would leave that form facing the internet.

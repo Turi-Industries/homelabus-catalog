@@ -146,8 +146,7 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 80
-      # No Anubis: it would break the mobile clients and the browser extension.
-      chain: [caddy-front, caddy-back]
+      # A proof-of-work would break the mobile clients and the browser extension.
       expose: after-guide
       # Read in Vaultwarden 1.37.3: a wrong master password is a 400, never a 401 — and
       # asking for the e-mailed second-factor code checks the master password first.

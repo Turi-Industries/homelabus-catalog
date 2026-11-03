@@ -135,9 +135,8 @@ spec:
   ingress:
     - host: "{{ domain }}"
       port: 2283
-      # No Anubis: it would break the mobile applications, which do the automatic
+      # A proof-of-work would break the mobile applications, which do the automatic
       # photo backup — the very feature you install Immich for.
-      chain: [caddy-front, caddy-back]
       expose: after-guide
       # `UnauthorizedException('Incorrect email or password')`, Immich 3.3.1.
       authRoutes:
