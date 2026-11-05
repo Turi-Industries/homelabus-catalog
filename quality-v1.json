@@ -1,15 +1,15 @@
 {
   "source": "official",
-  "index": 3,
+  "index": 4,
   "apps": {
     "bulwark": {
       "since": "2026-11-02",
       "last": {
         "version": "1.18.0",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -19,10 +19,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "2026.1027.190751",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -32,10 +32,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "28.2",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -45,10 +45,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "v3.3.1",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -58,10 +58,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "12.4",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -71,10 +71,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "6.3.1-alpine",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "notRun",
         "uninstall": "passed"
@@ -84,10 +84,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "v3.29.0",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -97,10 +97,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "3.0.0",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -110,10 +110,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "1.7.5-apache",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -123,10 +123,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "14.0.9",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -136,10 +136,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "26.10.5",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -149,10 +149,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "1.37.4",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
@@ -162,10 +162,10 @@
       "since": "2026-11-02",
       "last": {
         "version": "2.7",
-        "hlb": "0.4.2",
-        "date": "2026-11-03",
+        "hlb": "0.4.6",
+        "date": "2026-11-05",
         "install": "passed",
-        "update": "passed",
+        "update": "notRun",
         "backup": "passed",
         "restore": "passed",
         "uninstall": "passed"
